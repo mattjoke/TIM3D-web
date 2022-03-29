@@ -40,24 +40,24 @@ const BodyWrapper = () => {
                         element={<MainPage setLoading={setLoading} />}
                     />
                     <Route
-                        path="/get-started"
+                        path="get-started"
                         element={<GetStarted setLoading={setLoading} />}
                     />
                     <Route
-                        path="/introduction"
+                        path="introduction"
                         element={<Introduction setLoading={setLoading} />}
                     />
                     <Route
-                        path="/examples"
+                        path="examples"
                         element={<Examples setLoading={setLoading} />}
                     />
-                    <Route path="/documentation" element={<Docs setLoading={setLoading} />} />
+                    <Route path="documentation" element={<Docs setLoading={setLoading} />} />
                     <Route
-                        path="/stats-and-development-process"
+                        path="stats-and-development-process"
                         element={<Stats setLoading={setLoading} />}
                     />
                     <Route
-                        path="/contribute"
+                        path="contribute"
                         element={<Contribute setLoading={setLoading} />}
                     />
                     <Route
