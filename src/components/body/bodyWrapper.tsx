@@ -15,6 +15,7 @@ import Docs from "./docs";
 import Examples from "./example";
 import GetStarted from "./getStarted";
 import Introduction from "./introduction";
+import LatestBuilds from "./builds";
 import MainPage from "./intro";
 import NoMatch from "./noMatch";
 import Stats from "./stats";
@@ -59,6 +60,10 @@ const BodyWrapper = () => {
                     <Route
                         path="contribute"
                         element={<Contribute setLoading={setLoading} />}
+                    />
+                    <Route
+                        path="latest-builds"
+                        element={<LatestBuilds setLoading={setLoading} />}
                     />
                     <Route
                         path="*"

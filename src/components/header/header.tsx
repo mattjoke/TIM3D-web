@@ -6,16 +6,18 @@ import {
     Burger,
     Grid,
     Group,
+    Input,
     MediaQuery,
     Text,
     Title,
     useMantineColorScheme,
-    useMantineTheme,
+    useMantineTheme
 } from "@mantine/core";
-import { MoonStars, Sun, ThreeDCubeSphere } from "tabler-icons-react";
+import { MoonStars, Search, Sun, ThreeDCubeSphere } from "tabler-icons-react";
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
+import { useSpotlight } from "@mantine/spotlight";
 
 type Props = {
     opened: boolean;
@@ -31,6 +33,8 @@ const Header = ({ opened, setOpened }: Props) => {
 
     const [version, setVersion] = useState<string>("v0.1");
     const [badgeUrl, setBadgeUrl] = useState<string>("/");
+
+    const spotlight = useSpotlight();
 
     useEffect(() => {
         let cancel = false;
@@ -106,13 +110,28 @@ const Header = ({ opened, setOpened }: Props) => {
                         </MediaQuery>
                     </Grid.Col>
                 </Grid>
-                <ActionIcon
-                    variant="default"
-                    onClick={() => toggleColorScheme()}
-                    size={30}
-                >
-                    {dark ? <Sun size={16} /> : <MoonStars size={16} />}
-                </ActionIcon>
+                <Group>
+                    <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+                        <Input
+                            icon={<Search size={14} />}
+                            placeholder="Search"
+                            onClick={() => spotlight.openSpotlight()}
+                            rightSectionWidth={90}
+                            rightSection={
+                                <Badge color="gray" radius="sm">
+                                    Ctrl + K
+                                </Badge>
+                            }
+                        />
+                    </MediaQuery>
+                    <ActionIcon
+                        variant="default"
+                        onClick={() => toggleColorScheme()}
+                        size={30}
+                    >
+                        {dark ? <Sun size={16} /> : <MoonStars size={16} />}
+                    </ActionIcon>
+                </Group>
             </Group>
         </>
     );

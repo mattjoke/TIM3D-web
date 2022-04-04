@@ -3,6 +3,7 @@ import {
     Box,
     BrandGithub,
     BrandTabler,
+    Forklift,
     GitPullRequest,
     License,
     Rocket
@@ -60,6 +61,7 @@ const data = [
         label: "Stats and development process",
     },
     { icon: <BrandGithub size={16} />, color: "orange", label: "Contribute" },
+    { icon: <Forklift size={16} />, color: "red", label: "Latest builds" },
 ];
 
 export function MainLinks({

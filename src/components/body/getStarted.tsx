@@ -54,7 +54,7 @@ const GetStarted = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                         library depends on{" "}
                         <Link to="https://eloquentjavascript.net/10_modules.html#h_hF2FmOVxw7">
                             ES modules
-                        </Link>
+                        </Link>.
                     </Text>
                     <Text>
                         You can use TIM 3D by these currently suported methods:
@@ -70,7 +70,7 @@ const GetStarted = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                     <Text>
                         You can use TIM3D without any bundler. You only need to
                         include a link to library. You can download latest build
-                        from GitHub, or <Link to="/">Builds</Link> section.
+                        from GitHub, or from the <Link to="/latest-builds">Latest Builds</Link> section.
                     </Text>
                     <Text>
                         To get started with this method, you only need a file

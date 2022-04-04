@@ -176,7 +176,7 @@ const Contribute = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                     name: "Stats and development process",
                     link: "/stats-and-development-process",
                 }}
-                next={{ name: "Welcome page", link: "/" }}
+                next={{ name: "Latest builds", link: "/latest-builds" }}
             />
         </>
     );
