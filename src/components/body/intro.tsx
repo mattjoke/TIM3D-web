@@ -4,62 +4,105 @@ import {
     Container,
     Grid,
     Group,
-    Spoiler,
+    MediaQuery,
     Text,
-    Title
+    Title,
 } from "@mantine/core";
-import { Box, BrandTabler, Rocket } from "tabler-icons-react";
-import { Dispatch, useEffect, useState } from "react";
+import { Box, BrandTabler, Rocket, ThreeDCubeSphere } from "tabler-icons-react";
 
-import { Factory } from "tim3d";
+import DefaultManual from "./manuals/defaultManual";
+import { Dispatch } from "react";
 import { Link } from "react-router-dom";
+import { useColorScheme } from "@mantine/hooks";
 
 const MainPage = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
-    const [factory, setFactory] = useState<Factory>();
-
-    useEffect(() => {
-        setLoading(true);
-        const config = {
-            container: document.getElementById("instance")!,
-        };
-        setFactory(new Factory(config));
-        setLoading(false);
-    }, [setLoading]);
-
-    /*
-    useEffect(() => {            
-        return () => {
-            factory?.destroy();
-            setLoading(false);
-        };
-    }, [factory]);
-    */
-
+    const colorScheme = useColorScheme();
+    
     return (
         <>
             <Container>
-                <Title> Welcome!</Title>
+                <Title>
+                    <ThreeDCubeSphere /> Welcome!
+                </Title>
 
                 <Text mb={10}>
                     This is main page for the library called TIM 3D! If you
                     would like to try the library out, click the button bellow.
                 </Text>
 
-                <Spoiler
-                    maxHeight={30}
-                    showLabel="Show a demo"
-                    hideLabel="Hide"
-                >
-                    <div
-                        style={{
-                            width: "min(90vw, 500px)",
-                            height: "50vh",
-                        }}
-                        id="instance"
-                    />
-                </Spoiler>
+                <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                    <Text mb={10}>TIM 3D works on mobile devices too!</Text>
+                </MediaQuery>
 
-                <Text mb={10}>
+                <DefaultManual
+                    setLoading={setLoading}
+                    customConfig={{
+                        colors:{
+                            backgroundColor: colorScheme  === 'dark'? "#f8f9fa" : "#232323"
+                        }
+                    }}
+                    customJSON={{
+                        files: [
+                            {
+                                id: "cube_id_2",
+                                file: "https://gist.githubusercontent.com/mattjoke/b736d1b2edf54354780a990a87e23c0e/raw/f416082ee68c8e39a0ddb9dd6ea6f8093bbaad52/cube.obj",
+                                name: "Cube loaded",
+                                pose: {
+                                    position: [0, 0, 0],
+                                    orientation: [1, 0, 0, 0],
+                                },
+                            },
+                        ],
+                        steps: [
+                            {
+                                name: "First Step",
+                                positions: [
+                                    {
+                                        id: "cube_id_2",
+                                        pose: {
+                                            position: [50, 0, 0],
+                                        },
+                                    },
+                                ],
+                                animation: 'x120deg'
+                            },
+                            {
+                                name: "Second Step",
+                                positions: [
+                                    {
+                                        id: "cube_id_2",
+                                        pose: {
+                                            position: [0, 50, 0],
+                                            orientation: [
+                                                -0.8979618, 0.4013845,
+                                                0.1647231, -0.0736304,
+                                            ],
+                                        },
+                                    },
+                                ],
+                                animation: 'y15deg'
+                            },
+                            {
+                                name: "Third Step",
+                                positions: [
+                                    {
+                                        id: "cube_id_2",
+                                        pose: {
+                                            position: [0, 0, 50],
+                                            orientation: [
+                                                0.5135532, -0.4270046,
+                                                -0.7421897, -0.0555396,
+                                            ],
+                                        },
+                                    },
+                                ],
+                                animation: 'z91deg'
+                            },
+                        ],
+                    }}
+                    />
+
+                <Text mb={10} mt={10}>
                     TIM 3D is a 3D manual built over Three.js library. What can
                     you find here?
                 </Text>

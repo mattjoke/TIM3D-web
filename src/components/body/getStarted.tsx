@@ -45,7 +45,7 @@ const GetStarted = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
             <Container>
                 <Container>
                     <Title>
-                        <Rocket />
+                        <Rocket />{" "}
                         Get started
                     </Title>
                     <Text>

@@ -11,7 +11,7 @@ import {
     Text,
     Title,
     useMantineColorScheme,
-    useMantineTheme
+    useMantineTheme,
 } from "@mantine/core";
 import { MoonStars, Search, Sun, ThreeDCubeSphere } from "tabler-icons-react";
 import { useEffect, useState } from "react";
@@ -46,6 +46,11 @@ const Header = ({ opened, setOpened }: Props) => {
                 if (cancel) return;
                 setVersion(version);
                 setBadgeUrl(url);
+            })
+            .catch(() => {
+                if (cancel) return;
+                setVersion("v0.9");
+                setBadgeUrl("https://github.com/mattjoke/TIM3D/releases");
             });
         return () => {
             cancel = true;

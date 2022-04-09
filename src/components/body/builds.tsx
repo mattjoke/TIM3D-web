@@ -10,7 +10,7 @@ const LatestBuilds = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
     return (
         <>
             <Title>
-                <Forklift />
+                <Forklift />{" "}
                 Latest builds
             </Title>
             <Text>

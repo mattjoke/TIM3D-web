@@ -15,7 +15,7 @@ const Docs = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
     return (
         <>
             <Title>
-                <License />
+                <License />{" "}
                 Documentation
             </Title>
             <Text mb={10}>

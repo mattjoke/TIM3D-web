@@ -30,16 +30,14 @@ interface githubData {
 }
 
 const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
-    const [trelloData, setTrelloData] = useState<data[]>([]);
+    const [trelloData] = useState<data[]>([
+        { value: 0, color: "blue" },
+        { value: 0, color: "green" },
+        { value: 0, color: "orange" },
+        { value: 0, color: "yellow" },
+    ]);
     useEffect(() => {
         setLoading(true);
-        const obj = [
-            { value: 30, color: "blue" },
-            { value: 15, color: "green" },
-            { value: 15, color: "orange" },
-            { value: 15, color: "yellow" },
-        ];
-
         const arr = [
             "616c74d616ae67611a4444c8",
             "616c74db2c5c361a4f77907a",
@@ -52,14 +50,13 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
             fetch(url)
                 .then((res) => res.json())
                 .then((data) => {
-                    obj[index].value = data.length - 1;
+                    trelloData[index].value = data.length - 1;
                     count += data.length - 1;
-                    obj.forEach((item) => item.value / count);
-                    setTrelloData(obj);
+                    trelloData.forEach((item) => item.value / count);
                 });
+            setLoading(false);
         });
-        setLoading(false);
-    }, [setTrelloData, setLoading]);
+    }, [trelloData, setLoading]);
 
     const [githubData, setGithubData] = useState<githubData[]>([]);
     useEffect(() => {
@@ -74,22 +71,34 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
             .then((res) => res.json())
             .then((data) => {
                 obj[0].value = data.length;
+            })
+            .catch(() => {
+                obj[0].value = 0;
             });
         fetch("https://api.github.com/repos/mattjoke/tim3D/forks")
             .then((res) => res.json())
             .then((data) => {
                 obj[1].value = data.length;
+            })
+            .catch(() => {
+                obj[1].value = 0;
             });
 
         fetch("https://api.github.com/repos/mattjoke/tim3D/commits")
             .then((res) => res.json())
             .then((data) => {
                 obj[2].value = data.length;
+            })
+            .catch(() => {
+                obj[2].value = 0;
             });
         fetch("https://api.github.com/repos/mattjoke/TIM3D/pulls")
             .then((res) => res.json())
             .then((data) => {
                 obj[3].value = data.length;
+            })
+            .catch(() => {
+                obj[3].value = 0;
             });
         setGithubData(obj);
         setLoading(false);
@@ -105,7 +114,11 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                 const url = data[0].tag_name;
                 setReleaseVersion(url);
                 setLoading(false);
-            });
+            })
+            .catch(()=>{
+                setReleaseVersion("v0.9")
+                setLoading(false);
+            })
     }, [setLoading]);
 
     return (

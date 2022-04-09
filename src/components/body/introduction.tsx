@@ -13,6 +13,7 @@ import BottomLinks from "../utils/bottomLinks";
 import DefaultManual from "./manuals/defaultManual";
 import { Link } from "react-router-dom";
 import { Prism } from "@mantine/prism";
+import { useForceUpdate } from "@mantine/hooks";
 
 const htmlDoc = `
 ...
@@ -61,7 +62,7 @@ const uploaded = {
           file: 'cube.obj',
           name: 'Loaded Cube!',
           pose: { 
-              position: [5, 0, 0], 
+              position: [0, 0, 0], 
               orientation: [1, 0, 0, 0] 
             }
         }
@@ -104,8 +105,11 @@ const uplaodedWithManual = {
 const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
     const MAX = 4;
     const [active, setActive] = useState(0);
-    const nextStep = () =>
+    const forceUpdate = useForceUpdate();
+    const nextStep = () => {
         setActive((current) => (current < MAX ? current + 1 : current));
+        forceUpdate();
+    };
     const prevStep = () =>
         setActive((current) => (current > 0 ? current - 1 : current));
 
@@ -115,7 +119,9 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
 
     return (
         <>
-            <Title><BrandTabler />Introduction</Title>
+            <Title>
+                <BrandTabler /> Introduction
+            </Title>
             {active === 0 ? (
                 <>
                     <Text mb={10}>
@@ -276,10 +282,10 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                             files: [
                                 {
                                     id: "cube_id",
-                                    file: "https://gist.github.com/mattjoke/b736d1b2edf54354780a990a87e23c0e",
+                                    file: "https://gist.githubusercontent.com/mattjoke/b736d1b2edf54354780a990a87e23c0e/raw/f416082ee68c8e39a0ddb9dd6ea6f8093bbaad52/cube.obj",
                                     name: "Loaded Cube!",
                                     pose: {
-                                        position: [5, 0, 0],
+                                        position: [0, 0, 0],
                                         orientation: [1, 0, 0, 0],
                                     },
                                 },
@@ -347,10 +353,51 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                         .
                     </Text>
 
-                    <Text mb={10}>
+                    <Text mb={30}>
                         If you've correctly done all the steps correctly, you
                         should be able to see manual something like this:
                     </Text>
+
+                    <DefaultManual
+                        setLoading={setLoading}
+                        customJSON={{
+                            files: [
+                                {
+                                    id: "cube_id_2",
+                                    file: "https://gist.githubusercontent.com/mattjoke/b736d1b2edf54354780a990a87e23c0e/raw/f416082ee68c8e39a0ddb9dd6ea6f8093bbaad52/cube.obj",
+                                    name: "Cube loaded",
+                                    pose: {
+                                        position: [40, 0, 0],
+                                        orientation: [1, 0, 0, 0],
+                                    },
+                                },
+                            ],
+                            steps: [
+                                {
+                                    name: "First Step",
+                                    positions: [
+                                        {
+                                            id: "cube_id_2",
+                                            pose: {
+                                                position: [10, 0, 0],
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    name: "Second Step",
+                                    positions: [
+                                        {
+                                            id: "cube_id_2",
+                                            pose: {
+                                                position: [0, 0, 0],
+                                            },
+                                        },
+                                    ],
+                                },
+                            ],
+                        }}
+                    />
                 </Stepper.Step>
             </Stepper>
 

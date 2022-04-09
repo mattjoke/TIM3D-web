@@ -1,57 +1,48 @@
-import { Dispatch, useEffect, useState } from "react";
-import { Factory, JSON } from "tim3d";
+import { Config, Factory, JSON } from "tim3d";
+import { Dispatch, useEffect, useRef, useState } from "react";
 
 import { Center } from "@mantine/core";
 
 const DefaultManual = ({
     setLoading,
+    customConfig,
     customJSON,
 }: {
     setLoading: Dispatch<boolean>;
     customJSON?: JSON;
+    customConfig?: Config;
 }) => {
-    const [factory, setFactory] = useState<Factory>();
-    const [loadedJSON, setLoadedJSON] = useState<boolean>(false);
+    const ref = useRef<HTMLDivElement>(null);
+    const [loaded, setLoaded] = useState<boolean>(false);
+    const [lastJSON, setLastJSON] = useState<JSON>(customJSON ?? {});
 
     useEffect(() => {
+        if (loaded) return;
         setLoading(true);
-        const fun = async () => {
-            if (customJSON && !loadedJSON) {
-                factory?.loadJSON(customJSON);
-                setLoadedJSON(true);
-            }
-        };
-        fun();
-        setLoading(false);
-    }, [setLoadedJSON, loadedJSON, customJSON, factory, setLoading]);
 
-    useEffect(() => {
-        setLoading(true);
-        const div = document.getElementById("container");
-        if (div == null) {
-            console.log("Could not find container");
-            setLoading(false);
-            return;
-        }
-
-        const config = {
-            container: div,
+        const config = customConfig ?? {
             colors: {
                 backgroundColor: "#123456",
             },
         };
+        config.container = ref.current!;
 
-        setFactory(new Factory(config));
+        const json = lastJSON ?? {};
+
+        const factory = new Factory(config);
+        factory?.loadJSON(json);
+        setLastJSON(json);
         setLoading(false);
-    }, [setLoading, setLoadedJSON]);
-
-    useEffect(() => {
-        return () => {
-            // factory?.destroy();
-            setLoadedJSON(false);
-            setFactory(undefined);
-        };
-    }, [setFactory]);
+        setLoaded(true);
+    }, [
+        setLoading,
+        setLoaded,
+        loaded,
+        customConfig,
+        customJSON,
+        lastJSON,
+        setLastJSON,
+    ]);
 
     return (
         <Center>
@@ -61,6 +52,7 @@ const DefaultManual = ({
                     width: "300px",
                     height: "300px",
                 }}
+                ref={ref}
             />
         </Center>
     );

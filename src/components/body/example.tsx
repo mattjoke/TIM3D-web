@@ -13,7 +13,7 @@ const Examples = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
     return (
         <>
             <Title>
-                <Box/>
+                <Box/>{" "}
                 Examples
             </Title>
 

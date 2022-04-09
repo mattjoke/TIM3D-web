@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useScrollLock, useWindowScroll } from "@mantine/hooks";
 
 import { ArrowUp } from "tabler-icons-react";
 import Contribute from "./contribute";
@@ -19,17 +20,25 @@ import LatestBuilds from "./builds";
 import MainPage from "./intro";
 import NoMatch from "./noMatch";
 import Stats from "./stats";
-import { useWindowScroll } from "@mantine/hooks";
 
 const BodyWrapper = () => {
     const location = useLocation();
     const [scroll, scrollTo] = useWindowScroll();
 
+    const [_, setScrollLocked] = useScrollLock();
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        scrollTo({ x: 0 });
-    }, [location, scrollTo, scroll]);
+        scrollTo({ y: 0 });
+    }, [location, scrollTo]);
+
+    useEffect(() => {
+        setScrollLocked(!loading);
+        const timer = setTimeout(() => {
+            setScrollLocked(loading);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, [loading, setScrollLocked]);
 
     return (
         <TypographyStylesProvider>
@@ -52,7 +61,10 @@ const BodyWrapper = () => {
                         path="examples"
                         element={<Examples setLoading={setLoading} />}
                     />
-                    <Route path="documentation" element={<Docs setLoading={setLoading} />} />
+                    <Route
+                        path="documentation"
+                        element={<Docs setLoading={setLoading} />}
+                    />
                     <Route
                         path="stats-and-development-process"
                         element={<Stats setLoading={setLoading} />}
