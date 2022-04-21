@@ -1,13 +1,14 @@
-import { Anchor, Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
 import {
+    AlertTriangle,
     Box,
     BrandGithub,
     BrandTabler,
     Forklift,
     GitPullRequest,
     License,
-    Rocket
+    Rocket,
 } from "tabler-icons-react";
+import { Anchor, Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
 import React, { Dispatch, SetStateAction } from "react";
 
 import { Link } from "react-router-dom";
@@ -56,12 +57,18 @@ const data = [
     { icon: <Box size={16} />, color: "teal", label: "Examples" },
     { icon: <License size={16} />, color: "green", label: "Documentation" },
     {
-        icon: <GitPullRequest size={16} />,
+        icon: <AlertTriangle size={16} />,
         color: "lime",
+        label: "Limitations",
+    },
+    {
+        icon: <GitPullRequest size={16} />,
+        color: "orange",
         label: "Stats and development process",
     },
-    { icon: <BrandGithub size={16} />, color: "orange", label: "Contribute" },
-    { icon: <Forklift size={16} />, color: "red", label: "Latest builds" },
+    { icon: <BrandGithub size={16} />, color: "red", label: "Contribute" },
+
+    { icon: <Forklift size={16} />, color: "grape", label: "Latest builds" },
 ];
 
 export function MainLinks({
@@ -72,7 +79,13 @@ export function MainLinks({
     const links = data.map((link) => {
         const linkUrl = `/${link.label.replaceAll(" ", "-").toLowerCase()}`;
         return (
-            <Anchor component={Link} to={linkUrl} key={link.label} onClick={()=>setOpened(false)} underline={false}>
+            <Anchor
+                component={Link}
+                to={linkUrl}
+                key={link.label}
+                onClick={() => setOpened(false)}
+                underline={false}
+            >
                 <MainLink {...link} key={link.label} />
             </Anchor>
         );

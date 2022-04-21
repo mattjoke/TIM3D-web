@@ -80,8 +80,8 @@ const Docs = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
             <BottomLinks
                 prev={{ name: "Examples", link: "/examples" }}
                 next={{
-                    name: "Stats and development process",
-                    link: "/stats-and-development-process",
+                    name: "Limitations",
+                    link: "/limitations",
                 }}
             />
         </>

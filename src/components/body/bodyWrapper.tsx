@@ -17,6 +17,7 @@ import Examples from "./example";
 import GetStarted from "./getStarted";
 import Introduction from "./introduction";
 import LatestBuilds from "./builds";
+import Limitations from "./limitations";
 import MainPage from "./intro";
 import NoMatch from "./noMatch";
 import Stats from "./stats";
@@ -60,6 +61,10 @@ const BodyWrapper = () => {
                     <Route
                         path="examples"
                         element={<Examples setLoading={setLoading} />}
+                    />
+                     <Route
+                        path="limitations"
+                        element={<Limitations setLoading={setLoading} />}
                     />
                     <Route
                         path="documentation"
