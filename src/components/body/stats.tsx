@@ -115,10 +115,10 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                 setReleaseVersion(url);
                 setLoading(false);
             })
-            .catch(()=>{
-                setReleaseVersion("v0.9")
+            .catch(() => {
+                setReleaseVersion("v0.9");
                 setLoading(false);
-            })
+            });
     }, [setLoading]);
 
     return (
@@ -130,9 +130,9 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
 
                 <Title order={3}>Versions</Title>
                 <Text>
-                    In these two graphs you can see the latest development and
-                    released numbers. When you click on the number you'll get to
-                    corresponding GitHub Repository.
+                    In these two graphs, you can see the latest development and
+                    released numbers. You will get to the corresponding GitHub
+                    repository when you click on the number.
                 </Text>
                 <Group>
                     <Group
@@ -158,7 +158,7 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                             }
                             sections={[{ value: 100, color: "green" }]}
                         />
-                        <Text>Latest published release</Text>
+                        <Text>The latest published release</Text>
                     </Group>
                     <Group
                         sx={{ cursor: "pointer" }}
@@ -177,7 +177,16 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                                     align="center"
                                     size="xl"
                                 >
-                                    {`${releaseVersion}.2`}
+                                    {`${releaseVersion.substring(
+                                        0,
+                                        releaseVersion.length - 1
+                                    )}${
+                                        Number(
+                                            releaseVersion.substring(
+                                                releaseVersion.length - 1
+                                            )
+                                        ) + 1
+                                    }`}
                                 </Text>
                             }
                             sections={[{ value: 100, color: "teal" }]}
@@ -188,8 +197,8 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
 
                 <Title order={3}>Stats</Title>
                 <Text>
-                    In these two graphs you can see the summary information
-                    about development cycle. Trello is used as primary task
+                    In these two graphs, you can see the summary information
+                    about the development cycle. Trello is used as primary task
                     management software.
                 </Text>
                 <Title order={4}>Trello</Title>
@@ -221,15 +230,16 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                 <Title order={4}>GitHub</Title>
                 <Group>
                     <Text>
-                        GitHub repository can be accessed by this{" "}
+                        The GitHub repository can be accessed with this GitHub
+                        repository can be accessed by this{" "}
                         <a href="https://github.com/mattjoke/TIM3D/tree/main">
                             link
                             <sup>
                                 <ExternalLink size={12} />
                             </sup>
                         </a>
-                        . Bellow there are little stats, that shows current
-                        Star, Fork, Commit and Pull-Request count.
+                        . Bellow, a few stats shows the current Star, Fork,
+                        Commit and Pull-Request count.
                     </Text>
                     <Group>
                         <Star />
@@ -251,10 +261,10 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
 
                 <Title order={3}>Development</Title>
                 <Text>
-                    TIM 3D is a open source library and major development cycles
-                    works using Pull Requests. If you want to learn more about,
-                    how you can help improve this library check out next
-                    section!
+                    TIM 3D is an open-source library, and significant
+                    development cycles work using Pull Requests. If you want to
+                    learn more about how you can help improve this library,
+                    check out the next section!
                 </Text>
 
                 <Title order={3}>Trello</Title>
@@ -266,6 +276,7 @@ const Stats = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                         rel="noreferrer"
                     >
                         Trello
+                        <ExternalLink size={16} />
                     </a>
                     .
                 </Text>

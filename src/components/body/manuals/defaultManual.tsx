@@ -1,7 +1,6 @@
+import { Center, useMantineColorScheme } from "@mantine/core";
 import { Config, Factory, JSON } from "tim3d";
 import { Dispatch, useEffect, useRef, useState } from "react";
-
-import { Center } from "@mantine/core";
 
 const DefaultManual = ({
     setLoading,
@@ -12,28 +11,29 @@ const DefaultManual = ({
     customJSON?: JSON;
     customConfig?: Config;
 }) => {
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     const ref = useRef<HTMLDivElement>(null);
     const [loaded, setLoaded] = useState<boolean>(false);
     const [lastJSON, setLastJSON] = useState<JSON>(customJSON ?? {});
 
     useEffect(() => {
-        if (loaded) return;
-        setLoading(true);
+        if (loaded ) return;
+        setLoading(true);        
 
         const config = customConfig ?? {
             colors: {
-                backgroundColor: "#123456",
+                backgroundColor: colorScheme === "dark" ? "#fcfafa" : "#123456",
             },
         };
         config.container = ref.current!;
 
+        const factory = new Factory(config);
         const json = lastJSON ?? {};
 
-        const factory = new Factory(config);
         factory?.loadJSON(json);
-        setLastJSON(json);
         setLoading(false);
         setLoaded(true);
+        setLastJSON(json);
     }, [
         setLoading,
         setLoaded,
@@ -42,6 +42,7 @@ const DefaultManual = ({
         customJSON,
         lastJSON,
         setLastJSON,
+        colorScheme
     ]);
 
     return (

@@ -25,7 +25,7 @@ type Props = {
 };
 
 const Header = ({ opened, setOpened }: Props) => {
-    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();    
     const dark = colorScheme === "dark";
 
     const theme = useMantineTheme();

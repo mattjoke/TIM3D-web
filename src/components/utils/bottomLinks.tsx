@@ -1,6 +1,8 @@
 import { ArrowLeft, ArrowRight } from "tabler-icons-react";
 import { Card, Group, MediaQuery, Text } from "@mantine/core";
 
+// @ts-ignore
+import { Stack } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
 interface props {
@@ -18,8 +20,8 @@ const BottomLinks = ({ next, prev }: props) => {
     const navigate = useNavigate();
     return (
         <>
-            <MediaQuery largerThan="md" styles={{ display: "none" }}>
-                <Group position="apart" grow mt={10}>
+            <MediaQuery largerThan="lg" styles={{ display: "none" }}>
+                <Stack mt={10}>
                     <Card
                         shadow="sm"
                         p="lg"
@@ -43,19 +45,20 @@ const BottomLinks = ({ next, prev }: props) => {
                         onClick={() => navigate(next.link)}
                         sx={{ cursor: "pointer" }}
                     >
-                        <Group position="right" style={{ marginBottom: 5 }}>
+                        <Group position="apart" style={{ marginBottom: 5 }}>
+                            <Text size="xs" color="dimmed">
+                                {next.name}
+                            </Text>
                             <Group position="center">
                                 <Text weight={500}>Up next</Text>
                                 <ArrowRight />
                             </Group>
-                            <Text size="xs" color="dimmed">
-                                {next.name}
-                            </Text>
                         </Group>
                     </Card>
-                </Group>
+                </Stack>
             </MediaQuery>
-            <MediaQuery smallerThan="md" styles={{ display: "none" }}>
+
+            <MediaQuery smallerThan="lg" styles={{ display: "none" }}>
                 <Group position="apart" grow mt={10}>
                     <Card
                         shadow="sm"

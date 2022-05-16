@@ -15,11 +15,10 @@ const Docs = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
     return (
         <>
             <Title>
-                <License />{" "}
-                Documentation
+                <License /> Documentation
             </Title>
             <Text mb={10}>
-                The whole documentation can be accessed by this{"    "}
+                The complete documentation can be accessed with this{"    "}
                 <a
                     href="https://mattjoke.github.io/TIM3D/docs/"
                     target="_blank"
@@ -72,9 +71,9 @@ const Docs = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
             </Text>
 
             <Text>
-                If you've found a bug in documentation or want to add something
-                to the documentation, please check out the next page with all
-                helpful and necessary development information.
+                If you have found a bug in documentation or want to add
+                something to the documentation, please check out the next page
+                with all helpful and necessary development information.
             </Text>
 
             <BottomLinks
