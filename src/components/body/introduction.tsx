@@ -2,6 +2,7 @@ import {
     BrandHtml5,
     BrandJavascript,
     BrandTabler,
+    ExternalLink,
     FileCode,
     ThreeDCubeSphere,
     Upload,
@@ -11,7 +12,6 @@ import { Dispatch, useEffect, useState } from "react";
 
 import BottomLinks from "../utils/bottomLinks";
 import DefaultManual from "./manuals/defaultManual";
-import { Link } from "react-router-dom";
 import { Prism } from "@mantine/prism";
 import { useForceUpdate } from "@mantine/hooks";
 
@@ -29,7 +29,7 @@ const htmlDocWithJS = `
     <h1>Awesome Manual!</h1>
     <div id="container"></div>
     <script src="path/to/tim3d.js" type="module"></script> 
-    <script src="script.js"></script> 
+    <script src="script.js" type="module"></script> 
 ...
 `;
 
@@ -41,8 +41,6 @@ const cssDoc = `
 `;
 
 const jsDoc = `
-    import * as TIM3D from "tim3d";
-
 const div = document.getElementById("container");
 
 const config = {
@@ -52,7 +50,7 @@ const config = {
     } 
 };
 
-const manual = new TIM3D.Factory(config);
+const manual = new Factory(config);
 `;
 const jsonDoc = `
 const uploaded = {
@@ -74,7 +72,7 @@ manual.loadJSON(uploaded);
 `;
 const jsonDocExtended = `
 const uplaodedWithManual = {
-    files: [], // File array as defined earlier
+    files: [...], // File array as defined earlier
     steps: [
         {
             name: "First Step",
@@ -100,6 +98,8 @@ const uplaodedWithManual = {
         }
     ]
 }
+
+manual.withJSON(uplaodedWithManual);
 `;
 
 const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
@@ -110,8 +110,9 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
         setActive((current) => (current < MAX ? current + 1 : current));
         forceUpdate();
     };
-    const prevStep = () =>
+    const prevStep = () => {
         setActive((current) => (current > 0 ? current - 1 : current));
+    };
 
     useEffect(() => {
         setLoading(false);
@@ -125,8 +126,8 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
             {active === 0 ? (
                 <>
                     <Text mb={10}>
-                        Welcome! In this extensive tutorial we will get through
-                        basics and create our own TIM 3D manual!{" "}
+                        Welcome! We will get through the basics and create our
+                        own TIM 3D manual in this step-by-step tutorial.{" "}
                     </Text>
                 </>
             ) : (
@@ -141,8 +142,8 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                 >
                     <Title order={4}>Prepare HTML document</Title>
                     <Text>
-                        TIM 3D needs a HTML Element to inject itself into and
-                        begin drawing process. First we need to prepare our
+                        TIM 3D needs an HTML Element to inject itself into and
+                        begin the drawing process. First, we need to prepare our
                         HTML. Our HTML should have a <Code>div</Code> element in
                         it.
                     </Text>
@@ -152,9 +153,9 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                     </Prism>
 
                     <Text>
-                        It is recommended that <Code>div</Code>, that will be
-                        injected, should have defined width and/or height. This
-                        is because TIM 3D fills-in the element.
+                        It is recommended that the <Code>div</Code> injected
+                        have a defined width and height. This is because TIM 3D
+                        fills in the element.
                     </Text>
 
                     <Prism withLineNumbers language="css">
@@ -168,21 +169,20 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                 >
                     <Title order={4}>Prepare JavaScript file</Title>
                     <Text>
-                        First create a file. We will call it
+                        First, create a file. We will call it{" "}
                         <Code>script.js</Code>. Then we need to include our
-                        library into HTML page and our <Code>script.js</Code>
-                        file as well. Our HTML file should look like this:
+                        library in the HTML page and our <Code>script.js</Code>{" "}
+                        file. Our HTML file should look like this:
                     </Text>
 
                     <Prism language="markup">{htmlDocWithJS}</Prism>
 
                     <Text>
-                        Dont't forget the <b>type</b> in script tag when
-                        importing the library.
+                        Do not forget the <b>type</b> in the script tag when
+                        importing the library. Good job! Now we can begin
+                        creating our manual!{" "}
                     </Text>
-                    <Text>
-                        Good job! Now we can begin creating our own manual!
-                    </Text>
+                    <Text>Good job! Now we can begin creating our manual!</Text>
                 </Stepper.Step>
                 <Stepper.Step
                     icon={<ThreeDCubeSphere />}
@@ -191,24 +191,25 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                 >
                     <Title order={4}>Initialize TIM 3D</Title>
                     <Text>
-                        With imported library and imported
-                        <Code>script.js</Code> file we can finally initialize
+                        With the imported library and imported{" "}
+                        <Code>script.js</Code> file, we can finally initialize
                         our first manual!
                     </Text>
 
                     <Text>
-                        First we load the library and create selector for our
-                        created div. Then we need to create <Code>Config</Code>{" "}
-                        object which will contain all important setup data.
+                        First, we load the library and create a selector for our
+                        created div. Then we need to create a{" "}
+                        <Code>Config</Code> object which will contain all
+                        essential setup data.
                     </Text>
                     <Prism withLineNumbers language="javascript">
                         {jsDoc}
                     </Prism>
 
                     <Text mb={10}>
-                        If you've correctly done this, you should be able to see
-                        "empty" manual like this. Go ahead and try to move the
-                        screen with your mouse!
+                        If you have correctly done this, you should be able to
+                        see an "empty" manual like this. Go ahead and try to
+                        move the screen with your mouse!
                     </Text>
 
                     <DefaultManual setLoading={setLoading} />
@@ -221,59 +222,72 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                 >
                     <Title order={4}>Load files</Title>
                     <Text>
-                        Our manual is working correctly, but now we just need to
-                        add files. The library supports .stl and .obj files.
+                        Our manual is working correctly, but now we need to add
+                        files. The library supports .stl and .obj files.
                         Thankfully there is one "box" available to download.{" "}
-                        <a href="../../static/cube.obj">Download the cube</a>
+                        <a
+                            download={"cube.obj"}
+                            href="https://gist.github.com/mattjoke/b736d1b2edf54354780a990a87e23c0e"
+                        >
+                            Download the cube
+                            <ExternalLink size={16} />
+                        </a>
                     </Text>
 
                     <Text>
                         We need to tell TIM 3D where to look during loading
                         models. We need to create an object with these paths.
-                        There are more fields, that are needed for correct
-                        behaviour. Lastly we need to initialize TIM 3D with this
-                        config object.
+                        More fields are needed for correct behaviour. Lastly, we
+                        need to initialize TIM 3D with this config object.
                     </Text>
                     <Prism withLineNumbers language="javascript">
                         {jsonDoc}
                     </Prism>
 
                     <Text>
-                        A little explanation about fields in <Code>Config</Code>{" "}
-                        object.
+                        A little explanation about fields in the{" "}
+                        <Code>Config</Code> object.
                     </Text>
                     <List>
                         <List.Item>
-                            <b>files</b> - mandatory field with object
+                            <b>files</b> - a mandatory field with object
                             definitions
                         </List.Item>
                         <List.Item>
-                            <b>id</b> - Unique identifier of object in manual.
-                            Must be unique!
+                            <b>id</b> - unique identifier of the object in
+                            manual. It must be unique!
                         </List.Item>
                         <List.Item>
-                            <b>file</b> - A file path from where TIM 3D should
+                            <b>file</b> - a file path from where TIM 3D should
                             load the file
                         </List.Item>
                         <List.Item>
-                            <b>name</b> - Name of the object, does not need to
+                            <b>name</b> - name of the object, does not need to
                             be unique
                         </List.Item>
                         <List.Item>
-                            <b>pose</b> - Specifies default position of loaded
-                            obejct. Orientation is in Quaternions.
+                            <b>pose</b> - specifies default position of loaded
+                            object. Orientation is in Quaternions
                         </List.Item>
                     </List>
 
                     <Text>
                         More information is accessible from{" "}
-                        <Link to="/documentation">Documentation</Link>.
+                        <a
+                            target={"_blank"}
+                            rel={"noreferrer"}
+                            href="https://mattjoke.github.io/TIM3D/docs/interfaces/Config.html"
+                        >
+                            Documentation
+                            <ExternalLink size={16} />
+                        </a>
+                        .
                     </Text>
 
                     <Text mb={10}>
-                        If you've correctly done this, you should be able to see
-                        manual like this. Go ahead and try to move it with your
-                        mouse!
+                        If you have correctly done this, you should be able to
+                        see a manual like this. Go ahead and try to move it with
+                        your mouse!
                     </Text>
 
                     <DefaultManual
@@ -302,14 +316,14 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                     <Title order={4}>Create a Manual</Title>
                     <Text>
                         Now we have all the necessary information set up. Now we
-                        just need to define a <Code>step</Code> array, which
-                        contains positions of objects in time.
+                        need to define a <Code>step</Code> array, which contains
+                        the positions of objects in time.
                     </Text>
 
                     <Text>
-                        Add to the <Code>uploaded</Code> object new field called{" "}
-                        <Code>steps</Code>. Steps array is an array of objects,
-                        that should look like this.
+                        Add to the <Code>uploaded</Code> object a new field
+                        called <Code>steps</Code>. A steps array is an array of
+                        objects that should look like this.
                     </Text>
                     <Prism withLineNumbers language="javascript">
                         {jsonDocExtended}
@@ -321,17 +335,17 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                     </Text>
                     <List>
                         <List.Item>
-                            <b>steps</b> - Mandatory field with steps
+                            <b>steps</b> - a mndatory field with steps
                             definitions
                         </List.Item>
                         <List.Item>
-                            <b>name</b> - Name of the step, which is currently
-                            drawn.
+                            <b>name</b> - name of the step, which is currently
+                            drawn
                         </List.Item>
                         <List.Item>
-                            <b>positions</b> - An array of objects, which should
-                            move in given turn. These objects have fields
-                            defined bellow:
+                            <b>positions</b> - an array of objects which should
+                            move in a given turn. These objects have fields
+                            defined below:
                         </List.Item>
                         <List.Item>
                             <b>id</b> - Id of the object as defined in{" "}
@@ -339,23 +353,28 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                         </List.Item>
                         <List.Item>
                             <b>pose</b> - Specifies position and orientation of
-                            given object on specified step. Orientation is in
-                            Quaternions.
+                            the given object on a specified step. Orientation is
+                            in Quaternions
                         </List.Item>
                     </List>
 
                     <Text mb={10}>
-                        The full definiton and all possible fields can be
+                        The full definition and all possible fields can be
                         accessed in{"    "}
-                        <a href="https://mattjoke.github.io/TIM3D/docs/interfaces/JSON.html">
+                        <a
+                            target={"_blank"}
+                            rel={"noreferrer"}
+                            href="https://mattjoke.github.io/TIM3D/docs/interfaces/JSON.html"
+                        >
                             Documentation
+                            <ExternalLink size={16} />
                         </a>
                         .
                     </Text>
 
                     <Text mb={30}>
-                        If you've correctly done all the steps correctly, you
-                        should be able to see manual something like this:
+                        If you have correctly done all the steps, you should be
+                        able to see the manual something like this:
                     </Text>
 
                     <DefaultManual
@@ -367,7 +386,7 @@ const Introduction = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                                     file: "https://gist.githubusercontent.com/mattjoke/b736d1b2edf54354780a990a87e23c0e/raw/f416082ee68c8e39a0ddb9dd6ea6f8093bbaad52/cube.obj",
                                     name: "Cube loaded",
                                     pose: {
-                                        position: [40, 0, 0],
+                                        position: [10, 0, 0],
                                         orientation: [1, 0, 0, 0],
                                     },
                                 },

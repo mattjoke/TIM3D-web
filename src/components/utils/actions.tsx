@@ -1,27 +1,19 @@
-import {
-    Box,
-    BrandGithub,
-    BrandTabler,
-    Forklift,
-    GitPullRequest,
-    License,
-    Rocket,
-    ThreeDCubeSphere
-} from "tabler-icons-react";
-
 import { NavigateFunction } from "react-router-dom";
+import { TablerIconProps } from "@tabler/icons";
+import { ThreeDCubeSphere } from "tabler-icons-react";
 
-const buildAction = (input: {
-    title: string;
-    description: string;
-    icon: JSX.Element;
-    url?: string;
-}, navigate:NavigateFunction) => {
-    const { title, description, icon, url } = input;
+const buildAction = (
+    input: {
+        title: string;
+        icon: TablerIconProps;
+        url?: string;
+    },
+    navigate: NavigateFunction
+) => {
+    const { title, icon, url } = input;
     const linkUrl = `/${(url ?? title).replaceAll(" ", "-").toLowerCase()}`;
     return {
         title: title,
-        description: description,
         onTrigger: () => {
             navigate(linkUrl);
         },
@@ -29,50 +21,26 @@ const buildAction = (input: {
     };
 };
 
-const actions = (navigate: NavigateFunction) => {
-    const builder = [
+interface Icon_Data {
+    icon: JSX.Element;
+    color: string;
+    label: string;
+}
+
+const actions = (navigate: NavigateFunction, data: Icon_Data[]) => {
+    let builder: { title: string; icon: JSX.Element; url?: string }[] = [
         {
             title: "Welcome Page",
-            description: "Come back to the main page!",
             icon: <ThreeDCubeSphere />,
-            url: "/"
-        },
-        {
-            title: "Get Started",
-            description: "",
-            icon: <Rocket />,
-        },
-        {
-            title: "Introduction",
-            description: "",
-            icon: <BrandTabler />,
-        },
-        {
-            title: "Examples",
-            description: "",
-            icon: <Box />,
-        },
-        {
-            title: "Stats and development process",
-            description: "",
-            icon: <GitPullRequest />,
-        },
-        {
-            title: "Documentation",
-            description: "",
-            icon: <License />,
-        },
-        {
-            title: "Contribute",
-            description: "",
-            icon: <BrandGithub />,
-        },
-        {
-            title: "Latest builds",
-            description: "",
-            icon: <Forklift />,
+            url: "/",
         },
     ];
+    data.forEach((val: Icon_Data) => {
+        builder.push({
+            title: val.label,
+            icon: val.icon,
+        });
+    });
 
     var test = builder.map((item) => buildAction(item, navigate));
     return test;

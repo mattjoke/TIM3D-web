@@ -10,57 +10,56 @@ const LatestBuilds = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
     return (
         <>
             <Title>
-                <Forklift />{" "}
-                Latest builds
+                <Forklift /> Latest builds
             </Title>
             <Text>
-                In this section you will find latest builds of the library, CDN
-                and npm info.
+            In this section, you will find the latest library builds, CDN, and npm info.
             </Text>
             <Title order={3}>Static file</Title>
             <Text mb={-20}>
-                You can download the latest version of the library and import it
-                directly to your code. Great example, how to use the library is
-                in the <NavLink to="/introduction">Introduction</NavLink>{" "}
-                section. This is the latest version of the library, which is
-                build directly from main branch.{" "}
+            You can download the latest version of the library and import it directly to your code. A great example of using the library is in the <NavLink to="/introduction">Introduction</NavLink>{" "}
+            section. This is the latest version of the library built directly from the main branch. {" "}
                 <strong>
-                    Use this with caution, because it may contain bugs!
+                Use this with caution because it may contain bugs!
                 </strong>
             </Text>
             <Title order={4}>Production version</Title>
             <Text mb={-15}>
-                You can download the latest production bundle (~.75 MB) from
+            You can download the latest production bundle (~.75 MB) from
                 this{" "}
-                <a href="https://raw.githubusercontent.com/mattjoke/TIM3D/gh-pages-build/docs/scripts/prod/bundle.js">
+                <a
+                    href="https://raw.githubusercontent.com/mattjoke/TIM3D/gh-pages-build/docs/scripts/prod/tim3d.js"
+                    target={"_blank"}
+                    rel={"noreferrer"}
+                >
                     link
-                    <sup>
-                        <ExternalLink size={14} />
-                    </sup>
+                    <ExternalLink size={16} />
                 </a>
-                . The main difference between production and non-production
-                version is obviously library's size.
+                . The main difference between the production and non-production version is the library's size.
             </Text>
             <Title order={4}>Non-production version</Title>
             <Text mb={-15}>
-                You can download the latest non-production bundle (~1.8 MB) from
-                this{" "}
-                <a href="https://raw.githubusercontent.com/mattjoke/TIM3D/gh-pages-build/docs/scripts/bundle.js">
+            You can download the latest non-production bundle (~1.8 MB) from this{" "}
+                <a
+                    href="https://raw.githubusercontent.com/mattjoke/TIM3D/gh-pages-build/docs/scripts/tim3d.js"
+                    target={"_blank"}
+                    rel={"noreferrer"}
+                >
                     link
-                    <sup>
-                        <ExternalLink size={14} />
-                    </sup>
+                    <ExternalLink size={16} />
                 </a>
                 .
             </Text>
             <Title order={4}>NPM package</Title>
             <Text mb={40}>
-                All the information about npm.js package you can access via npm.js registy.{" "}
-                <a href="https://raw.githubusercontent.com/mattjoke/TIM3D/gh-pages-build/docs/scripts/prod/bundle.js">
+            All the information about the npm.js package can be accessed via the npm.js registry. {" "}
+                <a
+                    href="https://npmjs.com/package/tim3d"
+                    target={"_blank"}
+                    rel={"noreferrer"}
+                >
                     Link to npm.js
-                    <sup>
-                        <ExternalLink size={14} />
-                    </sup>
+                    <ExternalLink size={16} />
                 </a>
             </Text>
             <BottomLinks

@@ -10,19 +10,17 @@ import AppWrapper from "./AppWrapper";
 import { Search } from "tabler-icons-react";
 import { SpotlightProvider } from "@mantine/spotlight";
 import actions from "./components/utils/actions";
-import { useColorScheme } from "@mantine/hooks";
+import { data } from "./components/header/mainLinks";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const App = () => {
-    const prefferedColorScheme = useColorScheme();
-    const [colorScheme, setColorScheme] =
-        useState<ColorScheme>(prefferedColorScheme);
+    const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
     const toggleColorScheme = (value?: ColorScheme) =>
         setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
     const navigate = useNavigate();
-    const buildActions = actions(navigate);
+    const buildActions = actions(navigate, data);
 
     return (
         <ColorSchemeProvider

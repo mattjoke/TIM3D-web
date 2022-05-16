@@ -92,3 +92,7 @@ export function MainLinks({
     });
     return <div> {links} </div>;
 }
+
+export {
+    data
+}

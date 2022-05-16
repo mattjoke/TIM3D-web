@@ -4,19 +4,16 @@ import {
     Divider,
     Group,
     Text,
-    UnstyledButton,
-    UnstyledButtonProps,
+    UnstyledButton
 } from "@mantine/core";
 
 import { ChevronRight } from "tabler-icons-react";
 import { forwardRef } from "react";
 
-interface AuthorProps extends UnstyledButtonProps {}
-
-const Author = forwardRef<HTMLButtonElement, AuthorProps>(
-    ({ ...others }: AuthorProps, ref) => (
+const Author = forwardRef<HTMLButtonElement, unknown>(
+    ({ ...others }: any, ref) => (
         <>
-        <Divider />
+            <Divider />
             <UnstyledButton
                 ref={ref}
                 sx={(theme) => ({

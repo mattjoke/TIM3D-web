@@ -2,44 +2,133 @@ import {
     Anchor,
     Button,
     Container,
-    Grid,
     Group,
     MediaQuery,
     Text,
     Title,
+    Tooltip,
+    createStyles
 } from "@mantine/core";
-import { Box, BrandTabler, Rocket, ThreeDCubeSphere } from "tabler-icons-react";
+import { Box, BrandTabler, Rocket } from "tabler-icons-react";
 
 import DefaultManual from "./manuals/defaultManual";
 import { Dispatch } from "react";
 import { Link } from "react-router-dom";
 import { useColorScheme } from "@mantine/hooks";
 
+const useStyles = createStyles((theme) => ({
+    body: {
+        display: "flex",
+        width: "100%",
+        height: "70vh",
+        [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+            flexDirection: "column",
+            height: "100%",
+        },
+    },
+    container: {
+        justifyContent: "center",
+        alignContent: "center",
+        display: "flex",
+        maxWidth: "500px",
+        flexWrap: "wrap",
+    },
+    subcontent: {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignContent: "center",
+    },
+    title: {
+        color: theme.colorScheme[6],
+        fontSize: 60,
+        fontWeight: 900,
+        lineHeight: 1.5,
+    },
+}));
+
 const MainPage = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
     const colorScheme = useColorScheme();
-    
+    const { classes } = useStyles();
+
+    setLoading(false);
+
     return (
         <>
-            <Container>
-                <Title>
-                    <ThreeDCubeSphere /> Welcome!
-                </Title>
-
-                <Text mb={10}>
-                    This is main page for the library called TIM 3D! If you
-                    would like to try the library out, click the button bellow.
-                </Text>
-
-                <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                    <Text mb={10}>TIM 3D works on mobile devices too!</Text>
-                </MediaQuery>
-
+            <div className={classes.body}>
+                <Container className={classes.container}>
+                    <Title className={classes.title}>
+                        Interactive 3D manual on the web!
+                    </Title>
+                    <Text mb={10}>
+                    This is the main page for the library called TIM 3D! TIM 3D stands for Three.js Interactive Manual! If you would like to try the library out, click the buttons below.
+                    </Text>
+                    <Group position="center" spacing="xl" mb={30}>
+                        <Tooltip
+                            wrapLines
+                            width={220}
+                            withArrow
+                            transition="fade"
+                            position="bottom"
+                            transitionDuration={200}
+                            label="In this section, you can find basic installation links and tutorials."
+                        >
+                            <Anchor component={Link} to="/get-started">
+                                <Button radius="lg" rightIcon={<Rocket />}>
+                                    Get Started
+                                </Button>
+                            </Anchor>
+                        </Tooltip>
+                        <Tooltip
+                            wrapLines
+                            width={220}
+                            withArrow
+                            transition="fade"
+                            position="bottom"
+                            transitionDuration={200}
+                            label="In this section, you can find basic step-by-step tutorial of how to use the TIM 3D"
+                        >
+                            <Anchor component={Link} to="/introduction">
+                                <Button
+                                    color="cyan"
+                                    radius="lg"
+                                    rightIcon={<BrandTabler />}
+                                >
+                                    Introduction
+                                </Button>
+                            </Anchor>
+                        </Tooltip>
+                        <Tooltip
+                            wrapLines
+                            width={220}
+                            withArrow
+                            transition="fade"
+                            position="bottom"
+                            transitionDuration={200}
+                            label="This section contains more exotic functions and manuals, which you can use with your own manuals"
+                        >
+                            <Anchor component={Link} to="/examples">
+                                <Button
+                                    color="teal"
+                                    radius="lg"
+                                    rightIcon={<Box />}
+                                >
+                                    Examples
+                                </Button>
+                            </Anchor>
+                        </Tooltip>
+                    </Group>
+                    <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                        <Text mb={10}>TIM 3D works on mobile devices too!</Text>
+                    </MediaQuery>
+                </Container>
                 <DefaultManual
                     setLoading={setLoading}
                     customConfig={{
-                        colors:{
-                            backgroundColor: colorScheme  === 'dark'? "#f8f9fa" : "#232323"
-                        }
+                        colors: {
+                            backgroundColor:
+                                colorScheme === "dark" ? "#f8f9fa" : "#232323",
+                        },
                     }}
                     customJSON={{
                         files: [
@@ -64,7 +153,7 @@ const MainPage = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                                         },
                                     },
                                 ],
-                                animation: 'x120deg'
+                                animation: "x120deg",
                             },
                             {
                                 name: "Second Step",
@@ -80,7 +169,7 @@ const MainPage = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                                         },
                                     },
                                 ],
-                                animation: 'y15deg'
+                                animation: "y15deg",
                             },
                             {
                                 name: "Third Step",
@@ -96,73 +185,12 @@ const MainPage = ({ setLoading }: { setLoading: Dispatch<boolean> }) => {
                                         },
                                     },
                                 ],
-                                animation: 'z91deg'
+                                animation: "z91deg",
                             },
                         ],
                     }}
-                    />
-
-                <Text mb={10} mt={10}>
-                    TIM 3D is a 3D manual built over Three.js library. What can
-                    you find here?
-                </Text>
-
-                <Group>
-                    <Grid align="center" justify="center">
-                        <Grid.Col span={5}>
-                            <Anchor component={Link} to="/get-started">
-                                <Button compact leftIcon={<Rocket />}>
-                                    Get Started
-                                </Button>
-                            </Anchor>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                            <Text>
-                                In this section, you can find basic installation
-                                links and tutorials.
-                            </Text>
-                        </Grid.Col>
-                    </Grid>
-                    <Grid align="center" justify="center">
-                        <Grid.Col span={5}>
-                            <Anchor component={Link} to="/introduction">
-                                <Button
-                                    compact
-                                    color="cyan"
-                                    leftIcon={<BrandTabler />}
-                                >
-                                    Introduction
-                                </Button>
-                            </Anchor>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                            <Text>
-                                In this section, you can find basic exmaple of
-                                how to use this library.
-                            </Text>
-                        </Grid.Col>
-                    </Grid>
-                    <Grid align="center" justify="center">
-                        <Grid.Col span={5}>
-                            <Anchor component={Link} to="/examples">
-                                <Button compact color="teal" leftIcon={<Box />}>
-                                    Examples
-                                </Button>
-                            </Anchor>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                            <Text>
-                                In this section, we will go step by step and
-                                create our own TIM 3D manual!
-                            </Text>
-                        </Grid.Col>
-                    </Grid>
-                </Group>
-                <Text>
-                    And so much more! What are you waiting for? Go ahead and
-                    explore!
-                </Text>
-            </Container>
+                />
+            </div>
         </>
     );
 };
